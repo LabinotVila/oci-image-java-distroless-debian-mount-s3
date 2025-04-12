@@ -40,4 +40,4 @@ Bootstrap script finished, now running the application!
 Hi
 ```
 
-which means that `mount-s3` command is available in the image.
+which means that `mount-s3` command is available in the container.
