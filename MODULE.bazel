@@ -1,0 +1,27 @@
+bazel_dep(name = "rules_java", version = "8.8.0") # used to create Java binary
+bazel_dep(name = "rules_pkg", version = "0.7.0") # used to create a packaged tar
+bazel_dep(name = "rules_oci", version = "1.7.5") # used to create an OCI image
+
+# Java distroless 21
+oci = use_extension("@rules_oci//oci:extensions.bzl", "oci")
+oci.pull(
+    # pull Java 21 from Debian 12
+    name = "java_21_debian_12_amd",
+    digest = "sha256:b9094cce11d2baac4b6bc51bb2d218c9fb60170655be5d6250a8143e0cde2621",
+    image = "gcr.io/distroless/java21-debian12",
+)
+use_repo(oci, "java_21_debian_12_amd")
+
+# Rules distroless
+bazel_dep(name = "rules_distroless", version = "0.5.1") # allows usage of apt, so we can install additional libraries
+
+apt = use_extension("@rules_distroless//apt:extensions.bzl", "apt")
+apt.install(
+    name = "mount_s3_dependencies",
+    # additional libraries are specified at deps.yaml (such as libfuse, which
+    manifest = "//mount-s3:deps.yaml"
+)
+use_repo(apt, "mount_s3_dependencies")
+
+mount_s3 = use_extension("//mount-s3:aarch64.bzl", "mount_s3_aarch64_repo")
+use_repo(mount_s3, "mount_s3_aarch64_repo")

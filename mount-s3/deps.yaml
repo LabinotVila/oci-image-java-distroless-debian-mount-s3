@@ -1,0 +1,15 @@
+version: 1
+
+sources:
+  - channel: bullseye main contrib
+    urls:
+      - https://snapshot-cloudflare.debian.org/archive/debian/20250313T084507Z
+
+
+archs:
+  - "arm64"
+
+packages:
+  - "coreutils"
+  - "dash"
+  - "libfuse2"
