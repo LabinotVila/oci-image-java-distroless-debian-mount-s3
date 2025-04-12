@@ -3,6 +3,8 @@
 This is a demo project that demonstrates the creation of an `OCI`-image using `Bazel` and Google `Distroless`. The 
 created image contains `mount-s3` as a built-in command which is installed using `apt` in a `Debian` distribution.
 
+For the sake of simplicity, this image is `arm64` architecture based. 
+
 ### Overview
 
 ### Requirements
@@ -25,7 +27,7 @@ docker load -i bazel-bin/src/image-tarball/tarball.tar
 
 Run the image using:
 ```shell
-docker run --platform linux/amd64 image:1
+docker run image:1
 ```
 
 If everything went well, you will see:
